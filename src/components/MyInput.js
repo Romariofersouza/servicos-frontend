@@ -2,39 +2,37 @@ import {
     forwardRef,
     useImperativeHandle,
     useState,
-
-} from 'react'
-
+} from 'react';
 import {
     TextField,
 } from '@material-ui/core';
 
 const MyInput = forwardRef((props, ref) => {
-
     const {
-        label,
         defaultValue,
     } = props;
 
     const [value, setValue] = useState(defaultValue || '');
 
-    const getValue  = () => {
+    const getValue = () => {
         return value;
     }
 
-    const handleOnChange = ({target}) => {
+    const handleOnChange = ({ target }) => {
         setValue(target.value);
-    }
+    };
 
     useImperativeHandle(ref, () => ({
+        setValue,
         getValue,
     }));
+
     return (
-    <TextField
-            label={label}
+        <TextField
+            {...props}
             value={value}
             onChange={handleOnChange}
-    />
+        />
     );
 });
 

@@ -5,15 +5,15 @@ import {
     Button,
 } from '@material-ui/core';
 
-function MyButton(props){
-    const{
+function MyButton(props) {
+    const {
         text,
         increment,
         setTitle,
         onClick,
     } = props;
 
-    const[count, setCount] = useState(0);
+    const [count, setCount] = useState(0);
 
     const handleOnClick = event => {
         if (onClick) {
@@ -21,10 +21,10 @@ function MyButton(props){
         } else {
             setTitle(text);
             setCount(count + increment);
-        } 
+        }
     };
-    
-    return(
+
+    return (
         <Button
             variant='contained'
             color='primary'

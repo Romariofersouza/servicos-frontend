@@ -2,14 +2,13 @@ import {
     forwardRef,
     useImperativeHandle,
     useState,
+} from 'react';
 
-} from 'react'
 const MyTitle = forwardRef((props, ref) => {
-
     const {
-
         defaultTitle,
     } = props;
+
     const [title, setTitle] = useState(defaultTitle);
 
     useImperativeHandle(ref, () => ({
