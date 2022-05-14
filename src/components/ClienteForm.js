@@ -2,6 +2,9 @@ import React, { createRef } from "react";
 import axios from "axios";
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import TransferWithinAStationRoundedIcon from '@material-ui/icons/TransferWithinAStationRounded';
+
+
 
 import MyButton from "./MyButton";
 import MyInput from "./MyInput";
@@ -21,19 +24,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ProfissionalForm(props) {
+function ClienteForm(props) {
   const { 
-      profissionalId, 
-      profissionalName,
-      profissionalCPF,
-      profissionalCNPJ,
-      profissionalEndereco,
-      onSave,
-     } = props;
+    clienteId, 
+    clienteName,
+    clienteCPF,
+    clienteEndereco,
+    onSave,
+    } = props;
 
   const inputNameRef = createRef();
   const inputCPFRef = createRef();
-  const inputCNPJRef = createRef();
   const inputEnderecoRef = createRef();
 
   const getInputNameRef = () => {
@@ -44,34 +45,28 @@ function ProfissionalForm(props) {
     return inputCPFRef.current;
   };
 
-  const getInputCNPJRef = () => {
-    return inputCNPJRef.current;
-  };
-
   const getInputEnderecoRef = () => {
     return inputEnderecoRef.current;
   };
 
   const handleOnButtonSaveClick = async () => {
-    if (profissionalId) {
-      await axios.put(`/api/Profissional/${profissionalId}`, {
-        id: profissionalId,
+    if (clienteId) {
+      await axios.put(`/api/Cliente/${clienteId}`, {
+        id: clienteId,
         nome: getInputNameRef().getValue(),
         cpf: getInputCPFRef().getValue(),
-        cnpj: getInputCNPJRef().getValue(),
         IdEndereco: getInputEnderecoRef().getValue(),
       });
 
-      onSave("Profissional alterado com sucesso");
+      onSave("Cliente alterado com sucesso");
     } else {
-      await axios.post("/api/Profissional", {
+      await axios.post("/api/Cliente", {
         nome: getInputNameRef().getValue(),
         cpf: getInputCPFRef().getValue(),
-        cnpj: getInputCNPJRef().getValue(),
         IdEndereco: getInputEnderecoRef().getValue(),
       });
 
-      onSave("Profissional cadastrado com sucesso");
+      onSave("Cliente cadastrado com sucesso");
     }
   };
 
@@ -84,7 +79,7 @@ function ProfissionalForm(props) {
           <MyInput
             fullWidth
             ref={inputNameRef}
-            defaultValue={profissionalName}
+            defaultValue={clienteName}
             label="Nome: "
             variant="outlined"
             size="small"
@@ -94,7 +89,7 @@ function ProfissionalForm(props) {
           <MyInput
             fullWidth
             ref={inputCPFRef}
-            defaultValue={profissionalCPF}
+            defaultValue={clienteCPF}
             label="CPF: "
             variant="outlined"
             size="small"
@@ -103,18 +98,8 @@ function ProfissionalForm(props) {
         <Grid item xs={6}>
           <MyInput
             fullWidth
-            ref={inputCNPJRef}
-            defaultValue={profissionalCNPJ}
-            label="CNPJ: "
-            variant="outlined"
-            size="small"
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <MyInput
-            fullWidth
             ref={inputEnderecoRef}
-            defaultValue={profissionalEndereco}
+            defaultValue={clienteEndereco}
             label="Endereço: "
             variant="outlined"
             size="small"
@@ -128,4 +113,4 @@ function ProfissionalForm(props) {
   );
 }
 
-export default ProfissionalForm;
+export default ClienteForm;
