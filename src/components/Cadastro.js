@@ -121,8 +121,8 @@ export default function SignUp(props) {
     });
 
     await axios.post("/api/Cliente", {
-      rua: getinputRuaRef().getValue(),
-      bairro: getinputBairroRef().getValue(),
+      cpf: getinputRuaRef().getValue(),
+      nome: getinputBairroRef().getValue(),
       cidade: getinputCidadeRef().getValue(),
       cep: getinputCepRef().getValue(),
       complemento: getenderecoComplementoRef().getValue(),
