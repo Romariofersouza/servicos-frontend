@@ -41,11 +41,14 @@ import Telefone from './Telefone';
 import TelefoneForm from './TelefoneForm';
 import Atendimento from './Atendimento'
 import AtendimentoForm from './AtendimentoForm'
+import Entrar from './Entrar'
+
 
 
 const drawerWidth = 240;
 
-const CONTENT_TYPE_HOME = 'H';
+const CONTENT_TYPE_ENTRAR = 'E';
+const CONTENT_TYPE_ENTRARR = 'ER';
 const CONTENT_TYPE_CLIENTE = 'C';
 const CONTENT_TYPE_CLIENTE_FORM = 'CF';
 const CONTENT_TYPE_PROFISSIONAL = 'P';
@@ -100,13 +103,24 @@ function AppContent(props) {
     const theme = useTheme();
 
     const [mobileOpen, setMobileOpen] = useState(false);
-    const [contentType, setContentType] = useState(CONTENT_TYPE_HOME);
+    const [contentType, setContentType] = useState(CONTENT_TYPE_ENTRAR);
 
     const profissionalData = useRef({});
     const clienteData = useRef({});
     const enderecoData = useRef({});
     const telefoneData = useRef({});
     const atendimentoData = useRef({});
+    const EntrarData = useRef({});
+
+    const setEntrarData = currentEntrarData => {
+        profissionalData.current = currentEntrarData;
+    };
+
+    const getEntrarData = () => {
+        return EntrarData.current;
+    };
+
+    ///////////////////////////////////////////////////////// Profissional
 
     const setProfissionalData = currentProfissionalData => {
         profissionalData.current = currentProfissionalData;
@@ -159,6 +173,24 @@ function AppContent(props) {
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
+    
+    ///////////////////////////////////////////////////// Formulário do Entrar
+    
+    const handleOnEntrarNewButtonClick = () => {
+        setEntrarData({});
+        setContentType(CONTENT_TYPE_ENTRAR);
+    };
+
+    const handleOnEntrarUpdateButtonClick = currentEntrarData => {
+        setEntrarData(currentEntrarData);
+        setContentType(CONTENT_TYPE_ENTRAR);
+    };
+
+    const handleOnEntrarFormSave = message => {
+        alert(message);
+    };
+
+    ///////////////////////////////////////////////////// Formulário do Profissional
 
     const handleOnProfissionaisNewButtonClick = () => {
         setProfissionalData({});
@@ -240,6 +272,29 @@ function AppContent(props) {
 
     const getContent = () => {
         switch (contentType) {
+            case CONTENT_TYPE_ENTRAR:
+                return (
+                    <Entrar
+                        onNewButtonClick={handleOnEntrarNewButtonClick}
+                        onUpdateButtonClick={handleOnEntrarUpdateButtonClick}
+                    />
+                );
+            case CONTENT_TYPE_ENTRARR:
+                const {
+                    idEntrar ,
+                    nomeEntrar,
+                    senhaEntrar,
+                } = getEntrarData();
+
+                return (
+                    <Entrar
+                    entrarId={idEntrar}
+                    entrarNome={nomeEntrar}
+                    entrarSenha={senhaEntrar}
+                        onSave={handleOnEntrarFormSave}
+                    />
+                );
+            
             case CONTENT_TYPE_PROFISSIONAL:
                 return (
                     <Profissional
@@ -394,7 +449,7 @@ function AppContent(props) {
                 <ListItem
                     button
                     onClick={() => {
-                        setContentType(CONTENT_TYPE_HOME);
+                        setContentType(CONTENT_TYPE_ENTRAR);
                     }}
                 >
                     <ListItemIcon>
