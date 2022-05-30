@@ -11,11 +11,13 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-// import Endereco from './Endereco';
-// import CadastroEndereco from './EnderecoForm';
-// import MyInput from './MyInput';
 import axios from "axios";
 import MyInput from "./MyInput";
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
+
 
 function Copyright() {
   return (
@@ -54,17 +56,15 @@ export default function SignUp(props) {
   const classes = useStyles();
 
   const {
-    // enderecoId,
     enderecoRua,
     enderecoBairro,
     enderecoCidade,
     enderecoCep,
     enderecoComplemento,
-    clienteId, 
-    clienteName,
-    clienteCPF,
-    clienteEndereco,
-    // onSave,
+    clienteNome,
+    clienteCpf,
+    clienteEmail,
+    clienteSenha,
   } = props;
 
   const inputRuaRef = createRef();
@@ -73,8 +73,9 @@ export default function SignUp(props) {
   const inputCepRef = createRef();
   const inputComplementoRef = createRef();
   const inputNameRef = createRef();
-  const inputCPFRef = createRef();
-  const inputEnderecoRef = createRef();
+  const inputCpfRef = createRef();
+  const inputEmailRef = createRef();
+  const inputSenhaRef = createRef();
 
   const getinputRuaRef = () => {
     return inputRuaRef.current;
@@ -100,19 +101,23 @@ export default function SignUp(props) {
     return inputNameRef.current;
   };
 
-  const getInputCPFRef = () => {
-    return inputCPFRef.current;
+  const getInputCpfRef = () => {
+    return inputCpfRef.current;
   };
 
-  const getInputEnderecoRef = () => {
-    return inputEnderecoRef.current;
-  };
+  const getInputEmailRef = () => {
+    return inputEmailRef.current;
+  }
+
+  const getInputSenhaRef = () => {
+    return inputSenhaRef.current;
+  }
 
   const handleOnFormSubmit = async (event) => {
     event.preventDefault();
     event.stopPropagation();
 
-    await axios.post("/api/Endereco", {
+    const { data } = await axios.post("/api/Endereco", {
       rua: getinputRuaRef().getValue(),
       bairro: getinputBairroRef().getValue(),
       cidade: getinputCidadeRef().getValue(),
@@ -121,15 +126,17 @@ export default function SignUp(props) {
     });
 
     await axios.post("/api/Cliente", {
-      cpf: getinputRuaRef().getValue(),
-      nome: getinputBairroRef().getValue(),
-      cidade: getinputCidadeRef().getValue(),
-      cep: getinputCepRef().getValue(),
-      complemento: getenderecoComplementoRef().getValue(),
+      cpf: getInputCpfRef().getValue(),
+      nome: getInputNameRef().getValue(),
+      email: getInputEmailRef().getValue(),
+      senha: getInputSenhaRef().getValue(),
+      idEndereco: data.id,
     });
 
     alert("Cadastro efetuado com sucesso");
   };
+
+  
 
   return (
     <Container component="main" maxWidth="xs">
@@ -145,14 +152,15 @@ export default function SignUp(props) {
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <MyInput
-                autoComplete="Nme"
                 name="nome"
                 variant="outlined"
                 required
                 fullWidth
                 id="nome"
                 label="Nome"
-                autoFocus
+                autoComplete="Nme"
+                ref={inputNameRef}
+                defaultValue={clienteNome}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -164,6 +172,8 @@ export default function SignUp(props) {
                 label="CPF"
                 name="cpf"
                 autoComplete="CF"
+                ref={inputCpfRef}
+                defaultValue={clienteCpf}
               />
             </Grid>
             <Grid item xs={12}>
@@ -187,6 +197,8 @@ export default function SignUp(props) {
                 type="email"
                 id="email"
                 autoComplete="emal"
+                ref={inputEmailRef}
+                defaultValue={clienteEmail}
               />
             </Grid>
             <Grid item xs={12}>
@@ -199,6 +211,8 @@ export default function SignUp(props) {
                 type="senha"
                 id="senha"
                 autoComplete="current-snha"
+                ref={inputSenhaRef}
+                defaultValue={clienteSenha}
               />
             </Grid>
             <Grid item xs={12}>
