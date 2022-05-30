@@ -1,6 +1,6 @@
 // import React from 'react';
 
-// import AppContent from './components/AppContent';
+import AppContent from './components/AppContent';
 
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -12,9 +12,9 @@ import Cadastro from './components/Cadastro';
 
 function App() {
     return (
-        <Cadastro />
+          <Cadastro />
        // <Entrar/>
-        // <AppContent />
+        //<AppContent />
     );
 }
 

@@ -7,7 +7,9 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import {
+  Home as HomeIcon,
+} from '@material-ui/icons';
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
@@ -61,6 +63,7 @@ export default function SignUp(props) {
     enderecoCidade,
     enderecoCep,
     enderecoComplemento,
+    enderecoCnpj,
     clienteNome,
     clienteCpf,
     clienteEmail,
@@ -76,24 +79,29 @@ export default function SignUp(props) {
   const inputCpfRef = createRef();
   const inputEmailRef = createRef();
   const inputSenhaRef = createRef();
+  const inputCnpjRef = createRef();
 
-  const getinputRuaRef = () => {
+  const getInputRuaRef = () => {
     return inputRuaRef.current;
   };
 
-  const getinputBairroRef = () => {
+  const getInputCnpjRef = () => {
+    return inputCnpjRef.current;
+  };
+
+  const getInputBairroRef = () => {
     return inputBairroRef.current;
   };
 
-  const getinputCidadeRef = () => {
+  const getInputCidadeRef = () => {
     return inputCidadeRef.current;
   };
 
-  const getinputCepRef = () => {
+  const getInputCepRef = () => {
     return inputCepRef.current;
   };
 
-  const getenderecoComplementoRef = () => {
+  const getInputComplementoRef = () => {
     return inputComplementoRef.current;
   };
 
@@ -118,11 +126,12 @@ export default function SignUp(props) {
     event.stopPropagation();
 
     const { data } = await axios.post("/api/Endereco", {
-      rua: getinputRuaRef().getValue(),
-      bairro: getinputBairroRef().getValue(),
-      cidade: getinputCidadeRef().getValue(),
-      cep: getinputCepRef().getValue(),
-      complemento: getenderecoComplementoRef().getValue(),
+      rua: getInputRuaRef().getValue(),
+      bairro: getInputBairroRef().getValue(),
+      cidade: getInputCidadeRef().getValue(),
+      cep: getInputCepRef().getValue(),
+      cnpj: getInputCnpjRef().getValue(),
+      complemento: getInputComplementoRef().getValue(),
     });
 
     await axios.post("/api/Cliente", {
@@ -132,6 +141,18 @@ export default function SignUp(props) {
       senha: getInputSenhaRef().getValue(),
       idEndereco: data.id,
     });
+
+    getInputNameRef().setValue('');
+    getInputCpfRef().setValue('');
+    getInputEmailRef().setValue('');
+    getInputSenhaRef().setValue('');
+    getInputRuaRef().setValue('');
+    getInputBairroRef().setValue('');
+    getInputCidadeRef().setValue('');
+    getInputComplementoRef().setValue('');
+    getInputCepRef().setValue('');
+    getInputCnpjRef().setValue('');
+
 
     alert("Cadastro efetuado com sucesso");
   };
@@ -143,7 +164,7 @@ export default function SignUp(props) {
       <CssBaseline />
       <form className={classes.paper} onSubmit={handleOnFormSubmit}>
         <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
+          <HomeIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign up
@@ -185,6 +206,8 @@ export default function SignUp(props) {
                 label="CNPJ"
                 name="cnpj"
                 autoComplete="cpj"
+                ref={inputCnpjRef}
+                defaultValue={enderecoCnpj}
               />
             </Grid>
             <Grid item xs={12}>

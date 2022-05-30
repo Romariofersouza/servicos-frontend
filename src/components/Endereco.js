@@ -15,6 +15,7 @@ function Endereco (props){
             bairro: rowData.bairro,
             cidade: rowData.cidade,
             cep: rowData.cep, 
+            cnpj: rowData.cnpj,
             complemento: rowData.complemento 
         });
     };

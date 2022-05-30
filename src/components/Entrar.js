@@ -116,7 +116,7 @@ export default function SignInSide() {
               </Grid>
               <Grid item>
                 <Link href="http://localhost:3000/?email=&senha=#" variant="body2">
-                  {"Não tem conta? Cadastre-se"}
+                  {"Não tem conta? Cadastre"}
                 </Link>
               </Grid>
             </Grid>
