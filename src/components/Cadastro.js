@@ -2,24 +2,18 @@ import React, { createRef } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
-import {
-  Home as HomeIcon,
-} from '@material-ui/icons';
+import { Home as HomeIcon } from "@material-ui/icons";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import axios from "axios";
 import MyInput from "./MyInput";
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
-
+import { Radio, FormControlLabel } from "@material-ui/core";
+import MyRadioGroup from "./MyRadioGroup";
 
 function Copyright() {
   return (
@@ -80,6 +74,11 @@ export default function SignUp(props) {
   const inputEmailRef = createRef();
   const inputSenhaRef = createRef();
   const inputCnpjRef = createRef();
+  const radioGroupTypeRef = createRef();
+
+  const getinputRadioRef = () => {
+    return radioGroupTypeRef.current;
+  };
 
   const getInputRuaRef = () => {
     return inputRuaRef.current;
@@ -115,11 +114,11 @@ export default function SignUp(props) {
 
   const getInputEmailRef = () => {
     return inputEmailRef.current;
-  }
+  };
 
   const getInputSenhaRef = () => {
     return inputSenhaRef.current;
-  }
+  };
 
   const handleOnFormSubmit = async (event) => {
     event.preventDefault();
@@ -134,30 +133,37 @@ export default function SignUp(props) {
       complemento: getInputComplementoRef().getValue(),
     });
 
-    await axios.post("/api/Cliente", {
-      cpf: getInputCpfRef().getValue(),
-      nome: getInputNameRef().getValue(),
-      email: getInputEmailRef().getValue(),
-      senha: getInputSenhaRef().getValue(),
-      idEndereco: data.id,
-    });
+    if (getinputRadioRef().getValue() === "C") {
+      await axios.post("/api/Cliente", {
+        cpf: getInputCpfRef().getValue(),
+        nome: getInputNameRef().getValue(),
+        email: getInputEmailRef().getValue(),
+        senha: getInputSenhaRef().getValue(),
+        idEndereco: data.id,
+      });
+    } else {
+      await axios.post("/api/Cliente", {
+        cpf: getInputCpfRef().getValue(),
+        nome: getInputNameRef().getValue(),
+        email: getInputEmailRef().getValue(),
+        senha: getInputSenhaRef().getValue(),
+        idEndereco: data.id,
+      });
+    }
 
-    getInputNameRef().setValue('');
-    getInputCpfRef().setValue('');
-    getInputEmailRef().setValue('');
-    getInputSenhaRef().setValue('');
-    getInputRuaRef().setValue('');
-    getInputBairroRef().setValue('');
-    getInputCidadeRef().setValue('');
-    getInputComplementoRef().setValue('');
-    getInputCepRef().setValue('');
-    getInputCnpjRef().setValue('');
-
+    getInputNameRef().setValue("");
+    getInputCpfRef().setValue("");
+    getInputEmailRef().setValue("");
+    getInputSenhaRef().setValue("");
+    getInputRuaRef().setValue("");
+    getInputBairroRef().setValue("");
+    getInputCidadeRef().setValue("");
+    getInputComplementoRef().setValue("");
+    getInputCepRef().setValue("");
+    getInputCnpjRef().setValue("");
 
     alert("Cadastro efetuado com sucesso");
   };
-
-  
 
   return (
     <Container component="main" maxWidth="xs">
@@ -166,6 +172,22 @@ export default function SignUp(props) {
         <Avatar className={classes.avatar}>
           <HomeIcon />
         </Avatar>
+        <MyRadioGroup
+          ref={radioGroupTypeRef}
+          aria-label="perfil"
+          name="perfil1"
+          defaultValue="C"
+        >
+          <Typography component="h1" variant="h5">
+            Qual seu perfil?
+          </Typography>
+          <FormControlLabel value="C" control={<Radio />} label="Cliente" />
+          <FormControlLabel
+            value="P"
+            control={<Radio />}
+            label="Profissional"
+          />
+        </MyRadioGroup>
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
