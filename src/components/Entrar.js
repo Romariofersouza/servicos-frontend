@@ -12,10 +12,11 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
+       <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
         Your Website
@@ -31,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100vh',
   },
   image: {
-    backgroundImage: 'url(https://pin.it/6HJvhRI)',
+    backgroundImage: 'url(https://cdn.folhape.com.br/img/pc/1100/1/dn_arquivo/2021/06/cristiano-ronaldo.jpg)',
     backgroundRepeat: 'no-repeat',
     backgroundColor:
       theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
@@ -67,7 +68,7 @@ export default function SignInSide() {
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
+            <AssignmentIndIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Login
@@ -115,7 +116,7 @@ export default function SignInSide() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="http://localhost:3000/?email=&senha=#" variant="body2">
+                <Link href="" variant="body2">
                   {"Não tem conta? Cadastre"}
                 </Link>
               </Grid>

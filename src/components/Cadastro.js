@@ -6,7 +6,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
-import { Home as HomeIcon } from "@material-ui/icons";
+import { Home as HomeIcon, Style } from "@material-ui/icons";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
@@ -142,11 +142,12 @@ export default function SignUp(props) {
         idEndereco: data.id,
       });
     } else {
-      await axios.post("/api/Cliente", {
-        cpf: getInputCpfRef().getValue(),
-        nome: getInputNameRef().getValue(),
-        email: getInputEmailRef().getValue(),
-        senha: getInputSenhaRef().getValue(),
+      await axios.post("/api/Endereco", {
+        cpf: getInputCnpjRef().getValue(),
+        nome: getInputRuaRef().getValue(),
+        email: getInputBairroRef().getValue(),
+        senha: getInputCepRef().getValue(),
+        senha: getInputComplementoRef().getValue(),
         idEndereco: data.id,
       });
     }
@@ -175,7 +176,7 @@ export default function SignUp(props) {
         <MyRadioGroup
           ref={radioGroupTypeRef}
           aria-label="perfil"
-          name="perfil1"
+          name="perfil"
           defaultValue="C"
         >
           <Typography component="h1" variant="h5">
@@ -261,14 +262,6 @@ export default function SignUp(props) {
               />
             </Grid>
             <Grid item xs={12}>
-              {/* <MyInput
-                fullWidth
-                ref={inputRuaRef}
-                defaultValue={enderecoRua}
-                label="Rua: "
-                variant="outlined"
-                size="small"
-              /> */}
               <MyInput
                 variant="outlined"
                 required
@@ -283,14 +276,6 @@ export default function SignUp(props) {
               />
             </Grid>
             <Grid item xs={12}>
-              {/* <MyInput
-                fullWidth
-                ref={inputBairroRef}
-                defaultValue={enderecoBairro}
-                label="Bairro: "
-                variant="outlined"
-                size="small"
-              /> */}
               <MyInput
                 variant="outlined"
                 required
@@ -305,14 +290,6 @@ export default function SignUp(props) {
               />
             </Grid>
             <Grid item xs={12}>
-              {/* <MyInput
-                    fullWidth
-                    ref={inputCidadeRef}
-                    defaultValue={enderecoCidade}
-                    label="Cidade: "
-                    variant="outlined"
-                    size="small"
-                  /> */}
               <MyInput
                 variant="outlined"
                 required
@@ -327,14 +304,6 @@ export default function SignUp(props) {
               />
             </Grid>
             <Grid item xs={12}>
-              {/* <MyInput
-                  fullWidth
-                  ref={inputCepRef}
-                  defaultValue={enderecoCep}
-                  label="Cep: "
-                  variant="outlined"
-                  size="small"
-                /> */}
               <MyInput
                 variant="outlined"
                 required
@@ -349,14 +318,6 @@ export default function SignUp(props) {
               />
             </Grid>
             <Grid item xs={12}>
-              {/* <MyInput
-                  fullWidth
-                  ref={inputComplementoRef}
-                  defaultValue={enderecoComplemento}
-                  label="Complemento: "
-                  variant="outlined"
-                  size="small"
-                /> */}
               <MyInput
                 variant="outlined"
                 required
@@ -388,7 +349,7 @@ export default function SignUp(props) {
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="" variant="body2">
                 Já tem uma conta? Entre aqui
               </Link>
             </Grid>
