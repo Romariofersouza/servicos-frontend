@@ -124,46 +124,50 @@ export default function SignUp(props) {
     event.preventDefault();
     event.stopPropagation();
 
-    const { data } = await axios.post("/api/Endereco", {
-      rua: getInputRuaRef().getValue(),
-      bairro: getInputBairroRef().getValue(),
-      cidade: getInputCidadeRef().getValue(),
-      cep: getInputCepRef().getValue(),
-      cnpj: getInputCnpjRef().getValue(),
-      complemento: getInputComplementoRef().getValue(),
-    });
+    try {
+      const { data } = await axios.post("/api/Endereco", {
+        rua: getInputRuaRef().getValue(),
+        bairro: getInputBairroRef().getValue(),
+        cidade: getInputCidadeRef().getValue(),
+        cep: getInputCepRef().getValue(),
+        cnpj: getInputCnpjRef().getValue(),
+        complemento: getInputComplementoRef().getValue(),
+      });
 
-    if (getinputRadioRef().getValue() === "C") {
-      await axios.post("/api/Cliente", {
-        cpf: getInputCpfRef().getValue(),
-        nome: getInputNameRef().getValue(),
-        email: getInputEmailRef().getValue(),
-        senha: getInputSenhaRef().getValue(),
-        idEndereco: data.id,
-      });
-    } else {
-      await axios.post("/api/Endereco", {
-        cpf: getInputCnpjRef().getValue(),
-        nome: getInputRuaRef().getValue(),
-        email: getInputBairroRef().getValue(),
-        senha: getInputCepRef().getValue(),
-        senha: getInputComplementoRef().getValue(),
-        idEndereco: data.id,
-      });
+      if (getinputRadioRef().getValue() === "C") {
+        await axios.post("/api/Cliente", {
+          cpf: getInputCpfRef().getValue(),
+          nome: getInputNameRef().getValue(),
+          email: getInputEmailRef().getValue(),
+          senha: getInputSenhaRef().getValue(),
+          idEndereco: data.id,
+        });
+      } else {
+        await axios.post("/api/Profissional", {
+          cnpj: getInputCnpjRef().getValue(),
+          cpf: getInputCpfRef().getValue(),
+          nome: getInputNameRef().getValue(),
+          email: getInputEmailRef().getValue(),
+          senha: getInputSenhaRef().getValue(),
+          idEndereco: data.id,
+        });
+      }
+
+      getInputNameRef().setValue("");
+      getInputCpfRef().setValue("");
+      getInputEmailRef().setValue("");
+      getInputSenhaRef().setValue("");
+      getInputRuaRef().setValue("");
+      getInputBairroRef().setValue("");
+      getInputCidadeRef().setValue("");
+      getInputComplementoRef().setValue("");
+      getInputCepRef().setValue("");
+      getInputCnpjRef().setValue("");
+
+      alert("Cadastro efetuado com sucesso");
+    } catch {
+      alert('Falha ao tentar cadastrar');
     }
-
-    getInputNameRef().setValue("");
-    getInputCpfRef().setValue("");
-    getInputEmailRef().setValue("");
-    getInputSenhaRef().setValue("");
-    getInputRuaRef().setValue("");
-    getInputBairroRef().setValue("");
-    getInputCidadeRef().setValue("");
-    getInputComplementoRef().setValue("");
-    getInputCepRef().setValue("");
-    getInputCnpjRef().setValue("");
-
-    alert("Cadastro efetuado com sucesso");
   };
 
   return (

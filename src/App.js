@@ -12,8 +12,8 @@ import Cadastro from './components/Cadastro';
 
 function App() {
     return (
-          //<Cadastro />
-        <Entrar/>
+          <Cadastro />
+        //<Entrar/>
         //<AppContent />
     );
 }
