@@ -142,12 +142,14 @@ export default function SignUp(props) {
         idEndereco: data.id,
       });
     } else {
-      await axios.post("/api/Endereco", {
-        cpf: getInputCnpjRef().getValue(),
-        nome: getInputRuaRef().getValue(),
-        email: getInputBairroRef().getValue(),
-        senha: getInputCepRef().getValue(),
-        senha: getInputComplementoRef().getValue(),
+      await axios.post("/api/Profissional", {
+        cnpj: getInputCnpjRef().getValue(),
+        cpf: getInputCpfRef().getValue(),
+        rua: getInputRuaRef().getValue(),
+        bairro: getInputBairroRef().getValue(),
+        cep: getInputCepRef().getValue(),
+        complemento: getInputComplementoRef().getValue(),
+        email: getInputEmailRef().getValue(),
         idEndereco: data.id,
       });
     }
