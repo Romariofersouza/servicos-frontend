@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createRef } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,6 +13,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
+import MyInput from "./MyInput";
 
 function Copyright() {
   return (
@@ -58,8 +59,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignInSide() {
+export default function SignInSide(props) {
   const classes = useStyles();
+
+  const {
+    emailUser,
+    passwordUser,
+    email,
+    senha,
+
+  } = props;
+
+  const inputEmailRef = createRef();
+  const inputPasswordRef = createRef();
+
+  // await axios.get(`/api/Cliente/${email}/${senha}`, {
+    
+  // });
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -74,17 +90,18 @@ export default function SignInSide() {
             Login
           </Typography>
           <form className={classes.form} noValidate>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
+            <MyInput
+                name="email"
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email"
+                autoComplete="email"
+                ref={inputEmailRef}
+                defaultValue={emailUser}
+              />
             <TextField
               variant="outlined"
               margin="normal"
@@ -96,6 +113,18 @@ export default function SignInSide() {
               id="senha"
               autoComplete="current-senha"
             />
+              <MyInput
+                name="senha"
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="senha"
+                label="Senha"
+                autoComplete="senha"
+                ref={inputPasswordRef}
+                defaultValue={passwordUser}
+              />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Lembre-me"
